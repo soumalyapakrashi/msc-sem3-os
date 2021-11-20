@@ -1,0 +1,20 @@
+name: Colab Badge Action
+on: [push]
+
+jobs:
+  build:
+    name: Open in Colab Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout first
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Add/Update badges
+        id: badges
+        uses: trsvchn/colab-badge-action@v3
+        with:
+          check: 'all'
+          update: true
+          target_branch: main
+          target_repository: user/user-repo
