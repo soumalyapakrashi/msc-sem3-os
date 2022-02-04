@@ -8,6 +8,8 @@ class Node:
     def enterCriticalSection(self):
         print(f"In Critical Section of Node {self.name}")
 
+def nameConvert(node_index):
+        return node_list[node_index].name 
 
 if(__name__ == "__main__"):
     # Get number of nodes from user
@@ -36,6 +38,7 @@ if(__name__ == "__main__"):
     critical_node = random.randint(0, (nos_nodes - 1))
     print("\nNode already in Critical Section:", node_list[critical_node].name)
 
+
     # Randomly generate the required nodes wanting to enter critical section
     print("\nRequest Phase:")
     nodes_critical_section: "list[int]" = []
@@ -61,9 +64,9 @@ if(__name__ == "__main__"):
         # If the required number of nodes has been generated, break
         if(counter == nos_nodes_critical):
             break
-    
-    print(f"\nNodes willing to enter Critical Section: {list(map(lambda node_index: node_list[node_index].name, nodes_critical_section))}\n")
 
+    print(f"\nNodes willing to enter Critical Section: {list(map(nameConvert, nodes_critical_section))}\n")
+      
     # Enter the node which is already sitting in critical section into the queue
     nodes_critical_section.insert(0, critical_node)
     
@@ -78,8 +81,11 @@ if(__name__ == "__main__"):
             nodes_critical_section.pop(0)
             node_list[token].enterCriticalSection()
         
+        print(f"Status of queue at node {node_list[token].name}: {list(map(nameConvert, nodes_critical_section))}\n")
+        
         # Move token to next node
         token = (token + 1) % nos_nodes
+        
 
         # If the queue is empty, it denotes that no other nodes are willing to enter critical section.
         # In that case, stop the program

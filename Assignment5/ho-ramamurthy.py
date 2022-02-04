@@ -79,17 +79,12 @@ if(__name__ == "__main__"):
     sites_list: "list[Site]" = []
     # Create the sites
     for index in range(sites):
-        print(f"Site {index + 1}:")
+        print(f"Site {index}:")
         new_site: Site = Site(resources)
         # Setup the status tables in the corresponding site
         new_site.setupStatusTables()
         # Add the newly created site to the sites list
         sites_list.append(new_site)
-    
-    # # Print the status tables per each site
-    # for index, site in enumerate(sites_list):
-    #     print(f"Site {index}:")
-    #     site.showStatusTables()
     
     # Construct the wait-for-graph. Here, all the processes and resources are represented as nodes in the graph.
     # Here, it is stored as a list where each index represents a node in the graph. The first portion of the list
@@ -118,7 +113,7 @@ if(__name__ == "__main__"):
     # Setup the edges within the graph
     elapsed_processes: int = 0
     for site in sites_list:
-        # Directed edges from resources to processes indicating these resources are taken be the
+        # Directed edges from resources to processes indicating these resources are taken by the
         # corresponding processes
         for row_index, row_value in enumerate(site.process_holding_resource):
             for resource_index, resource_value in enumerate(row_value):
@@ -154,7 +149,7 @@ if(__name__ == "__main__"):
             index = track_index
             while(True):
                 if(graph[index].type == "P"):
-                    print(f"Process {graph[index].type}{graph[index].type_id} at Site S{graph[index].site_id}")
+                    print(f"Process P{graph[index].type_id} at Site S{graph[index].site_id}")
                 index = graph[index].next
                 if(index == track_index):
                     break
